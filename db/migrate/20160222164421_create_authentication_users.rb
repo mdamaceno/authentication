@@ -3,6 +3,7 @@ class CreateAuthenticationUsers < ActiveRecord::Migration
     create_table :authentication_users do |t|
       t.string :firstname
       t.string :lastname
+      t.string :slug
       t.string :email, null: false
       t.string :role, default: 'guest'
       t.string :password_digest
@@ -17,5 +18,6 @@ class CreateAuthenticationUsers < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :authentication_users, :email, unique: true
+    add_index :authentication_users, :slug, unique: true
   end
 end
