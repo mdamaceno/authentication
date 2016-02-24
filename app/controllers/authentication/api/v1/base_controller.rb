@@ -9,7 +9,7 @@ module Authentication
     protected
 
     def verify_authentication
-      token = request.headers['api-key']
+      token = request.headers['api-token']
 
       return unauthorized! if token.nil?
 

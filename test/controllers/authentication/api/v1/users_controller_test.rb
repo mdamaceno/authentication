@@ -6,7 +6,7 @@ module Authentication
       @controller = Authentication::Api::V1::UsersController.new
       @routes = Authentication::Engine.routes
       u = create(:user, auth_token: SecureRandom.base64(64))
-      request.headers['api-key'] = u.auth_token
+      request.headers['api-token'] = u.auth_token
     end
 
     # GET #index
@@ -24,9 +24,9 @@ module Authentication
       assert_not_nil result
     end
 
-    test 'GET #show does not returns a user if api-key does not exist' do
+    test 'GET #show does not returns a user if api-token does not exist' do
       user = create(:user)
-      request.headers['api-key'] = SecureRandom.base64(64)
+      request.headers['api-token'] = SecureRandom.base64(64)
       result = json_parsed('show', nil, nil, user)
       assert_equal 'not authorized', result['error']
       assert_response 403
