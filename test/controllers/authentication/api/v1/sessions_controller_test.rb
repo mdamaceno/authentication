@@ -16,6 +16,7 @@ module Authentication
       post :create, params, format: :json
       result = JSON.parse(response.body)
       assert_not_nil result['auth_token']
+      assert_equal response.headers['api-key'], result['auth_token']
     end
 
     test '#POST #create does not generate a token for the user if wrong credentials are submitted' do

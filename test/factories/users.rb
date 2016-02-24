@@ -4,5 +4,6 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password Faker::Internet.password
     status true
+    auth_token nil
   end
 end

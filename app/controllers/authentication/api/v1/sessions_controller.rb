@@ -4,7 +4,7 @@ module Authentication
       user = Authentication::User.find_by_email_and_password(session_params[:email], session_params[:password])
       unless user.nil?
         user.update_attribute(:auth_token, SecureRandom.base64(64))
-        response.headers['api-token'] = user.auth_token
+        response.headers['api-key'] = user.auth_token
         render json: user
       else
         render json: { error: 'Nothing to do' }, status: :not_found
