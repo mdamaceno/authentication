@@ -18,6 +18,7 @@ gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_
 gem 'friendly_id', '~> 5.1.0'
 gem 'active_hash_relation'
 gem 'pg'
+gem 'validates_email_format_of'
 
 group :test do
   gem 'minitest'

@@ -17,52 +17,17 @@ ActiveRecord::Schema.define(version: 20160222164421) do
   enable_extension "plpgsql"
 
   create_table "authentication_users", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "lastname"
-    t.string   "slug"
-    t.string   "email",                                  null: false
-    t.string   "role",                 default: "guest"
-    t.string   "password_digest"
-    t.string   "remember_digest"
-    t.string   "activation_digest"
-    t.datetime "activated_at"
-    t.boolean  "activated",            default: false
-    t.string   "reset_digest"
-    t.datetime "reset_sent_at"
-    t.string   "authentication_token"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "name",                       null: false
+    t.string   "slug",                       null: false
+    t.string   "email",                      null: false
+    t.string   "password"
+    t.boolean  "status",     default: false
+    t.string   "auth_token"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "authentication_users", ["email"], name: "index_authentication_users_on_email", unique: true, using: :btree
   add_index "authentication_users", ["slug"], name: "index_authentication_users_on_slug", unique: true, using: :btree
-
-  create_table "blog_categories", force: :cascade do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "blog_tags", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 50
-    t.string   "scope"
-    t.datetime "created_at"
-  end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
 end

@@ -166,6 +166,8 @@ GEM
     tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    validates_email_format_of (1.6.3)
+      i18n
 
 PLATFORMS
   ruby
@@ -185,6 +187,7 @@ DEPENDENCIES
   purdytest
   rack-test
   rails-api
+  validates_email_format_of
 
 BUNDLED WITH
    1.11.2
