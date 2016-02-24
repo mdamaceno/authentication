@@ -5,13 +5,15 @@ module Authentication
     def setup
       @controller = Authentication::Api::V1::UsersController.new
       @routes = Authentication::Engine.routes
+      u = create(:user, auth_token: SecureRandom.base64(64))
+      request.headers['api-key'] = u.auth_token
     end
 
     # GET #index
 
     test 'GET #index returns all the users' do
       result = json_parsed('index', 10, 'user')
-      assert_equal 10, result.length
+      assert_equal 11, result.length
     end
 
     # GET #show

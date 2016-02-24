@@ -5,6 +5,8 @@ module Authentication
     def setup
       @controller = Authentication::Api::V1::SessionsController.new
       @routes = Authentication::Engine.routes
+      u = create(:user, auth_token: SecureRandom.base64(64))
+      request.headers['api-key'] = u.auth_token
     end
 
     # POST #create
@@ -25,7 +27,7 @@ module Authentication
       params = { user: { email: user.email, password: '654321' } }
       post :create, params, format: :json
       result = JSON.parse(response.body)
-      assert_equal 'Nothing to do', result['error']
+      assert_equal 'Something is wrong', result['error']
       assert_response :not_found
     end
 
@@ -45,7 +47,7 @@ module Authentication
       params = { user: { email: user.email, password: '654321' } }
       delete :destroy, params, format: :json
       result = JSON.parse(response.body)
-      assert_equal 'Nothing to do', result['error']
+      assert_equal 'Something is wrong', result['error']
       assert_response :not_found
     end
   end
