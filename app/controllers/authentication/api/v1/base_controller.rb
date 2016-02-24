@@ -13,7 +13,7 @@ module Authentication
 
       return unauthorized! if token.nil?
 
-      user = User.find_by(auth_token: token)
+      user = Authentication::User.find_by(auth_token: token)
 
       return unauthorized! if user.nil?
     end

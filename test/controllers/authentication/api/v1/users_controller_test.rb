@@ -24,6 +24,14 @@ module Authentication
       assert_not_nil result
     end
 
+    test 'GET #show does not returns a user if api-key does not exist' do
+      user = create(:user)
+      request.headers['api-key'] = SecureRandom.base64(64)
+      result = json_parsed('show', nil, nil, user)
+      assert_equal 'not authorized', result['error']
+      assert_response 403
+    end
+
     test 'GET #show returns 404 if user is not found' do
       result = get :show, id: 999, format: :json
       assert_response :not_found
