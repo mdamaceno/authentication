@@ -3,6 +3,8 @@ module Authentication
     extend FriendlyId
     friendly_id :name, use: :slugged
 
+    has_secure_password
+
     # Validations
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true, email_format: true

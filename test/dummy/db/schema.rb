@@ -17,14 +17,14 @@ ActiveRecord::Schema.define(version: 20160222164421) do
   enable_extension "plpgsql"
 
   create_table "authentication_users", force: :cascade do |t|
-    t.string   "name",                       null: false
-    t.string   "slug",                       null: false
-    t.string   "email",                      null: false
-    t.string   "password"
-    t.boolean  "status",     default: false
+    t.string   "name",                            null: false
+    t.string   "slug",                            null: false
+    t.string   "email",                           null: false
+    t.string   "password_digest"
+    t.boolean  "status",          default: false
     t.string   "auth_token"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "authentication_users", ["email"], name: "index_authentication_users_on_email", unique: true, using: :btree

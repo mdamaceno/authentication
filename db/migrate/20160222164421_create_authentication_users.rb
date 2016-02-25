@@ -4,7 +4,7 @@ class CreateAuthenticationUsers < ActiveRecord::Migration
       t.string :name, null: false
       t.string :slug, null: false
       t.string :email, null: false
-      t.string :password
+      t.string :password_digest
       t.boolean :status, default: false
       t.string :auth_token
 

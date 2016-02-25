@@ -19,6 +19,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'active_hash_relation'
 gem 'pg'
 gem 'validates_email_format_of'
+gem 'bcrypt'
 
 group :test do
   gem 'minitest'

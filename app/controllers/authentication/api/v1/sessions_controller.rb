@@ -3,23 +3,26 @@ module Authentication
     skip_before_action :verify_authentication, only: [:create]
 
     def create
-      user = Authentication::User.find_by_email_and_password(session_params[:email], session_params[:password])
-      unless user.nil?
+      user = Authentication::User.find_by(email: session_params[:email])
+      if user && user.authenticate(session_params[:password])
         user.update_attribute(:auth_token, SecureRandom.base64(64))
         response.headers['api-token'] = user.auth_token
         render json: user
       else
-        render json: { error: 'Something is wrong' }, status: :not_found
+        render json: { error: 'not authorized' }, status: 403
       end
     end
 
     def destroy
-      user = Authentication::User.find_by_email_and_password(session_params[:email], session_params[:password])
-      unless user.nil?
+      token = request.headers['api-token']
+      return render json: { error: 'not authorized' }, status: 403 if token.nil?
+
+      user = Authentication::User.find_by(auth_token: token)
+      if user
         user.update_attribute(:auth_token, nil)
         head :no_content
       else
-        render json: { error: 'Something is wrong' }, status: :not_found
+        render json: { error: 'not authorized' }, status: 403
       end
     end
 
