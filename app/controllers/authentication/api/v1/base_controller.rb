@@ -6,6 +6,14 @@ module Authentication
       render json: { error: 'not authorized' }, status: 403
     end
 
+    def current_user
+      token = request.headers['api-token']
+
+      return unauthorized! if token.nil?
+
+      @user = Authentication::User.find_by(auth_token: token)
+    end
+
     protected
 
     def verify_authentication
