@@ -17,9 +17,8 @@ module Authentication
       token = request.headers['api-token']
       return render json: { error: 'not authorized' }, status: 403 if token.nil?
 
-      user = Authentication::User.find_by(auth_token: token)
-      if user
-        user.update_attribute(:auth_token, nil)
+      if current_user
+        current_user.update_attribute(:auth_token, nil)
         head :no_content
       else
         render json: { error: 'not authorized' }, status: 403

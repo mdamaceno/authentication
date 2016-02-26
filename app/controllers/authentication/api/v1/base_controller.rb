@@ -8,10 +8,7 @@ module Authentication
 
     def current_user
       token = request.headers['api-token']
-
-      return unauthorized! if token.nil?
-
-      @user = Authentication::User.find_by(auth_token: token)
+      @user ||= Authentication::User.find_by(auth_token: token) unless token.nil?
     end
 
     protected
