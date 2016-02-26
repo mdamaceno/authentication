@@ -21,5 +21,17 @@ module Authentication
       patch :update, id: @user.id, user: { password: '654321' }, format: :json
       assert_response 403
     end
+
+    test 'POST #forgot sends an email to reset password' do
+      post :forgot, user: { email: @user.email }, format: :json
+      assert_response 204
+    end
+
+    test 'POST #forgot returns 404 if user not found' do
+      post :forgot, user: { email: 'zaza@zizi.com.br' }, format: :json
+      assert_response 404
+      result = JSON.parse(response.body)
+      assert_equal 'not found', result['error']
+    end
   end
 end

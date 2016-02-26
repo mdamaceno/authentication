@@ -7,6 +7,7 @@ Authentication::Engine.routes.draw do
 
       # Password change
       patch 'password', to: 'passwords#update'
+      post 'password', to: 'passwords#forgot'
 
       # users
       resources :users
